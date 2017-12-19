@@ -17,7 +17,7 @@ class RepliesController extends Controller
         $this->validate(request(), [
             'body' => 'required'
         ]);
-        
+
         $thread->addReply([
             'body' => request('body'),
             'user_id' => auth()->id()
