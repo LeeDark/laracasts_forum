@@ -6,6 +6,7 @@ use App\Channel;
 use App\Filters\ThreadFilters;
 use App\Thread;
 use Illuminate\Http\Request;
+use function redirect;
 
 class ThreadsController extends Controller
 {
@@ -110,6 +111,18 @@ class ThreadsController extends Controller
      */
     public function destroy($channel, Thread $thread)
     {
+//        if ($thread->user_id != auth()->id()) {
+////            if (request()->wantsJson()) {
+////                return response(['status' => 'Permissions Denied'], 403);
+////            }
+////
+////            return redirect('/login');
+//
+//            abort(403, 'You do not have parmissions to do this.');
+//        }
+
+        $this->authorize('update', $thread);
+
         $thread->delete();
 
         if (request()->wantsJson()) {
